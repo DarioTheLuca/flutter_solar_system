@@ -30,26 +30,33 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
-  // int _counter = 0;
+  int _duration = 10000000;
 
-  // void _incrementCounter() {
-  //   setState(() {
-
-  //     _counter++;
-  //   });
-  // }
   final asseOrizzontale = 80;
   final asseVerticale = 30;
   final raggio = 2;
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  void _incrementVelocity() {
+    setState(() {
+      if (_duration > 100000) {
+        _duration = _duration - 50000;
+      }
+    });
+
+    _controller.duration = Duration(microseconds: _duration);
+    if (_controller.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 6),
+      duration: Duration(microseconds: _duration),
     );
 
     _animation = Tween(
@@ -97,11 +104,11 @@ class _MyHomePageState extends State<MyHomePage>
               );
             }),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementVelocity,
+        tooltip: 'Increment velocity',
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
