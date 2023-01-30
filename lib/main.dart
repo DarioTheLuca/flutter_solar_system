@@ -31,18 +31,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
-  // void _incrementVelocity() {
-  //   setState(() {
-  //     if (_duration > 100000) {
-  //       _duration = _duration - 50000;
-  //     }
-  //   });
+  int duration = 6000000;
 
-  //   _controller.duration = Duration(microseconds: _duration);
-  //   if (_controller.isAnimating) {
-  //     _controller.repeat();
-  //   }
-  // }
+  void _incrementVelocity() {
+    setState(() {
+      if (duration / 2 > 1000000 && duration.isEven) {
+        duration = (duration / 2).round();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,12 +50,12 @@ class _MyHomePageState extends State<MyHomePage>
       ),
       body: Center(
         child: Stack(
-          children: const <Widget>[
+          children: <Widget>[
             Planet(
               asseOrizzontale: 80,
               asseVerticale: 50,
               raggio: 2,
-              duration: 6000000,
+              duration: duration,
               rotationZ: pi / 4,
               color: Colors.blue,
             ),
@@ -65,11 +63,19 @@ class _MyHomePageState extends State<MyHomePage>
               asseOrizzontale: 80,
               asseVerticale: 50,
               raggio: 3,
-              duration: 6000000,
+              duration: duration,
               rotationZ: pi / 2,
               color: Colors.green,
             ),
             Planet(
+              asseOrizzontale: 80,
+              asseVerticale: 50,
+              raggio: 3,
+              duration: duration,
+              rotationZ: pi / 3,
+              color: const Color.fromARGB(255, 95, 78, 74),
+            ),
+            const Planet(
               asseOrizzontale: 80,
               asseVerticale: 50,
               raggio: 0,
@@ -78,11 +84,11 @@ class _MyHomePageState extends State<MyHomePage>
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementVelocity,
-      //   tooltip: 'Increment velocity',
-      //   child: const Icon(Icons.add),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementVelocity,
+        tooltip: 'Double velocity',
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

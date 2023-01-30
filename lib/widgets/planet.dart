@@ -43,6 +43,15 @@ class _PlanetState extends State<Planet> with SingleTickerProviderStateMixin {
   }
 
   @override
+  void didUpdateWidget(Planet oldWidget) {
+    _controller.duration = Duration(microseconds: widget.duration);
+    if (_controller.isAnimating) {
+      _controller.repeat();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
