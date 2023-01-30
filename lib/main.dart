@@ -1,6 +1,7 @@
-import 'dart:math' show cos, pi, sin;
-
 import 'package:flutter/material.dart';
+import 'package:flutter_solar_system/widgets/planet.dart';
+
+import 'dart:math' show pi;
 
 void main() {
   runApp(const MyApp());
@@ -30,49 +31,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
-  int _duration = 10000000;
+  // void _incrementVelocity() {
+  //   setState(() {
+  //     if (_duration > 100000) {
+  //       _duration = _duration - 50000;
+  //     }
+  //   });
 
-  final asseOrizzontale = 80;
-  final asseVerticale = 30;
-  final raggio = 2;
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  void _incrementVelocity() {
-    setState(() {
-      if (_duration > 100000) {
-        _duration = _duration - 50000;
-      }
-    });
-
-    _controller.duration = Duration(microseconds: _duration);
-    if (_controller.isAnimating) {
-      _controller.repeat();
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(microseconds: _duration),
-    );
-
-    _animation = Tween(
-      begin: 0.0,
-      end: 2 * pi,
-    ).animate(_controller);
-
-    _controller.repeat();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+  //   _controller.duration = Duration(microseconds: _duration);
+  //   if (_controller.isAnimating) {
+  //     _controller.repeat();
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,34 +51,38 @@ class _MyHomePageState extends State<MyHomePage>
         title: Text(widget.title),
       ),
       body: Center(
-        child: AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.identity()..rotateZ(pi / 4),
-                child: Transform.translate(
-                  offset: Offset(
-                    asseOrizzontale * raggio * cos(_animation.value),
-                    asseVerticale * raggio * sin(_animation.value),
-                  ),
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 231, 145, 32),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-              );
-            }),
+        child: Stack(
+          children: const <Widget>[
+            Planet(
+              asseOrizzontale: 80,
+              asseVerticale: 50,
+              raggio: 2,
+              duration: 6000000,
+              rotationZ: pi / 4,
+              color: Colors.blue,
+            ),
+            Planet(
+              asseOrizzontale: 80,
+              asseVerticale: 50,
+              raggio: 3,
+              duration: 6000000,
+              rotationZ: pi / 2,
+              color: Colors.green,
+            ),
+            Planet(
+              asseOrizzontale: 80,
+              asseVerticale: 50,
+              raggio: 0,
+              color: Color.fromARGB(255, 207, 117, 15),
+            ),
+          ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementVelocity,
-        tooltip: 'Increment velocity',
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementVelocity,
+      //   tooltip: 'Increment velocity',
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }
