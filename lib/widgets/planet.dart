@@ -5,17 +5,17 @@ import 'package:flutter/material.dart';
 class Planet extends StatefulWidget {
   const Planet({
     super.key,
-    this.asseOrizzontale = 50,
-    this.asseVerticale = 50,
-    required this.raggio,
+    this.horizontalaxis = 50,
+    this.verticalAxis = 50,
+    required this.radius,
     this.duration = 10000000,
     this.rotationZ = 0,
     this.color = Colors.white,
   });
-  final int asseOrizzontale;
-  final int asseVerticale;
+  final int horizontalaxis;
+  final int verticalAxis;
   final int duration;
-  final int raggio;
+  final int radius;
   final double rotationZ;
   final Color color;
   @override
@@ -67,8 +67,8 @@ class _PlanetState extends State<Planet> with SingleTickerProviderStateMixin {
             transform: Matrix4.identity()..rotateZ(widget.rotationZ),
             child: Transform.translate(
               offset: Offset(
-                widget.asseOrizzontale * widget.raggio * cos(_animation.value),
-                widget.asseVerticale * widget.raggio * sin(_animation.value),
+                widget.horizontalaxis * widget.radius * cos(_animation.value),
+                widget.verticalAxis * widget.radius * sin(_animation.value),
               ),
               child: Container(
                 height: 50,

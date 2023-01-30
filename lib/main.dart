@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter animation Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter animation demo'),
     );
   }
 }
@@ -52,33 +52,33 @@ class _MyHomePageState extends State<MyHomePage>
         child: Stack(
           children: <Widget>[
             Planet(
-              asseOrizzontale: 80,
-              asseVerticale: 50,
-              raggio: 2,
+              horizontalaxis: 80,
+              verticalAxis: 50,
+              radius: 2,
               duration: duration,
               rotationZ: pi / 4,
               color: Colors.blue,
             ),
             Planet(
-              asseOrizzontale: 80,
-              asseVerticale: 50,
-              raggio: 3,
+              horizontalaxis: 80,
+              verticalAxis: 50,
+              radius: 3,
               duration: duration,
               rotationZ: pi / 2,
               color: Colors.green,
             ),
             Planet(
-              asseOrizzontale: 80,
-              asseVerticale: 50,
-              raggio: 3,
+              horizontalaxis: 80,
+              verticalAxis: 50,
+              radius: 3,
               duration: duration,
               rotationZ: pi / 3,
               color: const Color.fromARGB(255, 95, 78, 74),
             ),
             const Planet(
-              asseOrizzontale: 80,
-              asseVerticale: 50,
-              raggio: 0,
+              horizontalaxis: 80,
+              verticalAxis: 50,
+              radius: 0,
               color: Color.fromARGB(255, 207, 117, 15),
             ),
           ],
